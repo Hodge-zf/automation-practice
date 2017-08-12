@@ -1,5 +1,6 @@
 from openpyxl import *
 from collections import Counter
+import matplotlib.pyplot as plt
 
 def read_spreadsheet(filename):
 	wb = load_workbook(filename)
@@ -55,6 +56,14 @@ def calculate_mode(numbers):
 	return modes
 
 
+def plot_points(column1, column2):
+	plt.plot(column1, column2, marker='o')
+	plt.xlabel('Column 1')
+	plt.ylabel('Column 2')
+	plt.title('Visualization of data sets')
+	plt.show()
+
+
 if __name__ == '__main__':
 	column1, column2 = read_spreadsheet(input('Enter filename: '))
 
@@ -79,3 +88,6 @@ if __name__ == '__main__':
 	print('The mode(s) of the list are: ')
 	for mode in mode2:
 		print(mode)
+
+	plot_points(column1, column2)
+
