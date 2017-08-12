@@ -4,15 +4,15 @@ from openpyxl import *
 def read_spreadsheet(filename):
 	wb = load_workbook(filename)
 	sheet = wb.active
-	cells = sheet[input('First cell in range: ') : input('Last cell in range: ')]
-	cell1 = []
-	cell2 = []
-	for c1, c2 in cells:
-		cell1.append(c1.value)
-		cell2.append(c2.value)
+	columns = sheet[input('First column in range: ') : input('Last column in range: ')]
+	column1 = []
+	column2 = []
+	for c1, c2 in columns:
+		column1.append(c1.value)
+		column2.append(c2.value)
 		print("{0:8} {1:8}".format(c1.value, c2.value))
 
-	return cell1, cell2
+	return column1, column2
 
 
 def calculate_mean(numbers):
@@ -23,9 +23,34 @@ def calculate_mean(numbers):
 	return mean
 
 
+def calculate_median(numbers):
+	n = len(numbers)
+	numbers.sort()
+
+	if n % 2 == 0:
+		m1 = n/2
+		m2 = (n/2) + 1
+
+		m1 = int(m1) - 1
+		m2 = int(m2) - 1
+		median = (numbers[m1] + numbers[m2]) / 2
+
+	else:
+		m = (n + 1) / 2
+		m = int(m) - 1
+		median = numbers[m]
+
+	return median
+
+
+
 if __name__ == '__main__':
-	cell1, cell2 = read_spreadsheet(input('Enter filename: '))
-	mean1 = calculate_mean(cell1)
+	column1, column2 = read_spreadsheet(input('Enter filename: '))
+	mean1 = calculate_mean(column1)
 	print('The mean of column 1 is: '+str(mean1))
-	mean2 = calculate_mean(cell2)
+	median1 = calculate_median(column1)
+	print('The median of column 1 is: '+str(median1))
+	mean2 = calculate_mean(column2)
 	print('The mean of column 2 is: '+str(mean2))
+	median2 = calculate_median(column2)
+	print('The median of column 2 is: '+str(median2))
